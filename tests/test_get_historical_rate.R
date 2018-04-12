@@ -18,13 +18,21 @@ test_that("Value errors", {
                'ValueError: input date is not in range. Data is avaiable from 1999-01-01 to now!')
   expect_error(get_historical_rate('2100-01-01', symbol = "CAD", base_symbol = "USD", access_key = access_key), 
                'ValueError: input date is not in range. Data is avaiable from 1999-01-01 to now!')
-  symbol = 'AAA'
+  symbol <- 'AAA'
   expect_error(get_historical_rate('2018-01-01', symbol = symbol, base_symbol = "USD", access_key = access_key), 
                "ValueError: the input symbol is not available, please check the symbols list by loading data symbols")
-  base_symbol = 'AAA'
+  base_symbol <- 'AAA'
   expect_error(get_historical_rate('2018-01-01', symbol = "CAD", base_symbol = base_symbol, access_key = access_key), 
                "ValueError: the input base_symbol is not available, please check the symbols list by loading data symbols")
   
 })
 
+# normal output cases
+
+test_that("Output errors",{
+  rate <- get_historical_rate('2018-01-01', symbol = "CAD", base_symbol = "USD", access_key = access_key)
+  expect_equal(object = rate, expected = 1.25551, tolerance = .00001)
+  rate <- get_historical_rate('2018-01-01', symbol = "CNY", base_symbol = "CAD", access_key = access_key)
+  expect_equal(object = rate, expected = 5.182116, tolerance = .00001)
+})
 
