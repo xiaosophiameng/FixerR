@@ -28,13 +28,13 @@ get_historical_rate <- function(date, symbol="CAD", base_symbol="USD", access_ke
     stop('TypeError: base_symbol must be a string, for example "USD"')
   }
   if(!is.character(access_key)){
-    stop('TypeError: access_key must be a string')
+    stop('TypeError: access_key must be a string format')
   }
   
   # assure input date is valid
   d <- try( as.Date( date, format= "%Y-%m-%d" ) )
   if( class(d) == "try-error" | is.na(d) ){
-    stop('ValueError: input date is not the correct format. It should be "YYYY-MM-DD", for example "2018-01-01"')
+    stop("ValueError: input date is not the correct format. It should be 'YYYY-MM-DD', for example '2018-01-01'")
   }
   
   # assure input date is in range
@@ -47,11 +47,11 @@ get_historical_rate <- function(date, symbol="CAD", base_symbol="USD", access_ke
   data("symbols")
   # assure symbol is available
   if (!(symbol %in% symbols$symbol)){
-    stop(paste0('ValueError: the input symbol "',symbol,'" is not available, please check the symbols list by loading `data(symbols)`'))
+    stop(paste0("ValueError: the input symbol is not available, please check the symbols list by loading data symbols"))
   }
   # assure symbol is available
   if (!(base_symbol %in% symbols$symbol)){
-    stop(paste0('ValueError: the input base_symbol "',base_symbol,'" is not available, please check the symbols list by loading `data(symbols)`'))
+    stop(paste0("ValueError: the input base_symbol is not available, please check the symbols list by loading data symbols"))
   }
   
   
