@@ -11,6 +11,20 @@ test_that("Datatype errors", {
   expect_error(get_historical_rate('2018-01-01', symbol = "CAD", base_symbol = "USD", access_key = 123), 'TypeError: access_key must be a string format')
 })
 
-
+test_that("Value errors", {
+  expect_error(get_historical_rate('01011998', symbol = "CAD", base_symbol = "USD", access_key = access_key), 
+               "ValueError: input date is not the correct format. It should be 'YYYY-MM-DD', for example '2018-01-01'")
+  expect_error(get_historical_rate('1998-01-01', symbol = "CAD", base_symbol = "USD", access_key = access_key), 
+               'ValueError: input date is not in range. Data is avaiable from 1999-01-01 to now!')
+  expect_error(get_historical_rate('2100-01-01', symbol = "CAD", base_symbol = "USD", access_key = access_key), 
+               'ValueError: input date is not in range. Data is avaiable from 1999-01-01 to now!')
+  symbol = 'AAA'
+  expect_error(get_historical_rate('2018-01-01', symbol = symbol, base_symbol = "USD", access_key = access_key), 
+               "ValueError: the input symbol is not available, please check the symbols list by loading data symbols")
+  base_symbol = 'AAA'
+  expect_error(get_historical_rate('2018-01-01', symbol = "CAD", base_symbol = base_symbol, access_key = access_key), 
+               "ValueError: the input base_symbol is not available, please check the symbols list by loading data symbols")
+  
+})
 
 
