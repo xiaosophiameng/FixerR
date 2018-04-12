@@ -1,0 +1,32 @@
+---
+title: "API exploration"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(httr)
+library(jsonlite)
+library(lubridate)
+```
+
+
+```{r}
+get_currency_symbols <- function(access_key="be0ea5ac928a149aec0872afcdb3bca7"){
+  base_url = "http://data.fixer.io/api/"
+  url <- paste0(base_url, 'symbols', '?access_key=', access_key)
+  r<-GET(url)
+}
+
+get_historical_rate <- function(date, symbol="CAD", base="USD", access_key = "be0ea5ac928a149aec0872afcdb3bca7"){
+  base_url = "http://data.fixer.io/api/"
+  url <- paste0(base_url, date, '?access_key=', access_key)
+  r<-GET(url)
+  data <- content(r)
+  return(data$rates[symbol][[1]]/data$rates[base][[1]])
+}
+```
+
