@@ -1,18 +1,19 @@
----
-title: "API exploration"
-output: html_document
----
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
-```{r}
-library(httr)
-```
-
-
-```{r}
+#' get_historical_rate: get a historical currency rate from the specified date
+#' Default is 
+#'
+#' @importFrom httr GET content
+#'
+#' @param date the date of interest, a string (character vector) in the format 'YYYY-MM-DD'
+#' @param symbol currency symbol of interest, for example "CAD"
+#' @param base_symbol currency symbol as a reference base 1, for example "USD"
+#' @param access_key access key for the fixer.io api, a string.
+#' @return currency rate.
+#'
+#' @export
+#'
+#' @examples
+#' rate = get_historical_rate('2018-01-01', 'CAD', 'EUR', access_key = your_key)
+#'
 
 get_historical_rate <- function(date, symbol="CAD", base_symbol="USD", access_key = "be0ea5ac928a149aec0872afcdb3bca7"){
   
@@ -69,5 +70,3 @@ get_historical_rate <- function(date, symbol="CAD", base_symbol="USD", access_ke
   
   return(data$rates[symbol][[1]]/data$rates[base_symbol][[1]])
 }
-```
-
